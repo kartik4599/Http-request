@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MoviesList from "./components/MoviesList";
 import "./App.css";
+import InputMovies from "./components/InputMovie";
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -80,6 +81,9 @@ function App() {
   }
   return (
     <React.Fragment>
+    <section>
+      <InputMovies/>
+    </section>
       <section>
         <button onClick={detchMovieHandler}>Fetch Movies</button>
       </section>
