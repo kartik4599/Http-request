@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import classes from "./InputMovie.module.css";
 
-const InputMovies = () => {
+const InputMovies = (props) => {
   const title = useRef();
   const Opening = useRef();
   const Release = useRef();
@@ -9,11 +9,11 @@ const InputMovies = () => {
   const sumbitHandler = (e) => {
     e.preventDefault();
     const val={
-        title:title.current.value,
-        Opening:Opening.current.value,
-        Release:Release.current.value
+        title: title.current.value,
+        openingText: Opening.current.value,
+        releaseDate: Release.current.value,
     }
-    console.log(val);
+    props.add(val);
   };
 
   return (
