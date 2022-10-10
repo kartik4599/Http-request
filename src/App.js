@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MoviesList from "./components/MoviesList";
 import "./App.css";
 
@@ -6,6 +6,34 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [isLoding, seLoding] = useState(false);
   const [err, setErr] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      seLoding(true);
+      try {
+        const response = await fetch("https://swapi.dev/api/films/");
+        if (!response.ok) throw new Error("SomeThing wents wrong ...Retrying");
+        const data = await response.json();
+
+        const transform = data.results.map((movie) => {
+          return {
+            id: movie.episode_id,
+            title: movie.title,
+            openingText: movie.opening_crawl,
+            releaseDate: movie.release_date,
+          };
+        });
+        console.log(transform);
+        setMovies(transform);
+        seLoding(false);
+      } catch (e) {
+        setErr(e.message);
+      }
+      seLoding(false);
+    };
+
+    fetchData();
+  }, []);
 
   const detchMovieHandler = async () => {
     seLoding(true);
@@ -31,10 +59,9 @@ function App() {
         seLoding(false);
         console.log("retry");
         setErr(e.message);
-        await setTimeout(()=>{},5000);
+        await setTimeout(() => {}, 5000);
       }
     }
-    
   };
 
   let status;
