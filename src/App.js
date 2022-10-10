@@ -25,13 +25,14 @@ function App() {
         });
         console.log(transform);
         setMovies(transform);
+        seLoding(false);
         break;
       } catch (e) {
+        seLoding(false);
         console.log("retry");
         setErr(e.message);
         await setTimeout(()=>{},5000);
       }
-      seLoding(false);
     }
     
   };
